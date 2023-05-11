@@ -103,5 +103,24 @@ class MainActivityTest {
             withText((previousCount + 1).toString())))
             .check(matches(isDisplayed()))
     }
+    @Test
+    fun editingTitleDoesntChangeCount() {
+        // 1
+        onView(withId(R.id.fab))
+            .perform(click())
+        // 2
+        onView(withId(R.id.textVictoryTitle))
+            .perform(click())
+        val newTitle = "Made the bed"
+        onView(instanceOf(EditText::class.java))
+            .perform(clearText())
+            .perform(typeText(newTitle))
+        onView(withText(R.string.dialog_ok))
+            .perform(click())
+
+        // 3
+        onView(allOf(withId(R.id.textVictoryCount), withText("0")))
+            .check(doesNotExist())
+    }
 
 }
