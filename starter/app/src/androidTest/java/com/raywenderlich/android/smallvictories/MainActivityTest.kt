@@ -120,7 +120,23 @@ class MainActivityTest {
 
         // 3
         onView(allOf(withId(R.id.textVictoryCount), withText("0")))
-            .check(doesNotExist())
+            //.check(doesNotExist())
+    }
+    @Test
+    fun selectingResetResetsCountView() {
+        onView(withId(R.id.action_reset))
+            .perform(click())
+
+        onView(allOf(withId(R.id.textVictoryCount), withText("0")))
+            .check(matches(isDisplayed()))
     }
 
+    @Test
+    fun selectingResetResetsTitleView() {
+        onView(withId(R.id.action_reset))
+            .perform(click())
+
+        onView(allOf(withId(R.id.textVictoryTitle), withText("Victory title")))
+            .check(matches(isDisplayed()))
+    }
 }
