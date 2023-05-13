@@ -139,4 +139,24 @@ class MainActivityTest {
         onView(allOf(withId(R.id.textVictoryTitle), withText("Victory title")))
             .check(matches(isDisplayed()))
     }
+    @Test
+    fun CountLimitingTo30() {
+        val previousCountString = rule.activity
+            .findViewById<TextView>(R.id.textVictoryCount).text.toString()
+        val previousCount =
+            if (previousCountString.isBlank()) {
+                0
+            } else {
+                onView(withId(R.id.action_reset))
+                    .perform(click())
+            }
+        for (i in 1..31){
+            onView(withId(R.id.fab))
+                .perform(click())
+        }
+
+
+        onView(allOf(withId(R.id.textVictoryCount), withText("30")))
+            .check(matches(isDisplayed()))
+    }
 }
