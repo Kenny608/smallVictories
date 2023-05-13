@@ -84,7 +84,6 @@ class MainActivityTest {
   }
     @Test
     fun incrementingVictoryCountUpdatesCountView() {
-        // 1
         val previousCountString = rule.activity
             .findViewById<TextView>(R.id.textVictoryCount).text.toString()
         val previousCount =
@@ -93,22 +92,16 @@ class MainActivityTest {
             } else {
                 previousCountString.toInt()
             }
-
-        // 2
         onView(withId(R.id.fab))
             .perform(click())
-
-        // 3
         onView(allOf(withId(R.id.textVictoryCount),
             withText((previousCount + 1).toString())))
             .check(matches(isDisplayed()))
     }
     @Test
     fun editingTitleDoesntChangeCount() {
-        // 1
         onView(withId(R.id.fab))
             .perform(click())
-        // 2
         onView(withId(R.id.textVictoryTitle))
             .perform(click())
         val newTitle = "Made the bed"
@@ -117,10 +110,8 @@ class MainActivityTest {
             .perform(typeText(newTitle))
         onView(withText(R.string.dialog_ok))
             .perform(click())
-
-        // 3
         onView(allOf(withId(R.id.textVictoryCount), withText("0")))
-            //.check(doesNotExist())
+            .check(doesNotExist())
     }
     @Test
     fun selectingResetResetsCountView() {
