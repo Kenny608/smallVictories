@@ -59,7 +59,10 @@ class VictoryViewModel : ViewModel() {
   }
 
   fun reset() {
-    // TODO reset existing victory title and count
+    repository.clear()
+    val (title, count) = repository.getVictoryTitleAndCount()
+    viewState.value = VictoryUiModel.CountUpdated(count)
+    viewState.value = VictoryUiModel.TitleUpdated(title)
   }
 }
 
